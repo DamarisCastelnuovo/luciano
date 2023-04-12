@@ -32,4 +32,25 @@ export default class ProductManager {
             return `El producto con ese ID no existe`
         }
     }
+
+    agregarProdAlCart = async (idCart, idProd) => {
+        const carritos = await this.getCarritos();
+        const carritosFilter = carritos.find((cart) => cart.id === idCart);
+        let productosEnElCarrito = carritosFilter.products;
+
+        const productoIndex = productosEnElCarrito.findIndex((prodIndex)=> prodIndex.id === idCart);
+
+        if(productosEnElCarrito !== -1){
+            productosEnElCarrito[productoIndex].quantity + 1;
+        }else{
+            let producto = {
+                id: idProd,
+                quantity: 1,
+            }
+            productosEnElCarrito.push(producto)
+        }
+        await fs.promises.writeFile(path, JSON.stringify(carritos, null, '/t'));
+        return carritosFilter;
+    }
+
 }

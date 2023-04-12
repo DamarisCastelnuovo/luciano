@@ -12,7 +12,9 @@ app.listen(PORT, () =>{
     console.log('Servidor funcionando en el puerto: ' + PORT);
 })
 
-app.use('/', productsRouter);
+app.use('/api/products', productsRouter);
+app.use('/api/products/:pid', productsRouter);
+
 //app.use('/api/cart', cartRouter);
 
 
